@@ -1,5 +1,5 @@
 <template>
-  <div class="gameTextButton">
+  <div class="gameTextButton" v-on:click="$emit('click', $event)">
       <slot></slot>
   </div>
 </template>
