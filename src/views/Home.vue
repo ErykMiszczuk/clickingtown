@@ -5,13 +5,13 @@
       <header class="menu__logo">
         <h1 class="menu__logoText">Clicking Town</h1>
       </header>
-      <GameTextButton v-on:click="changeMenu(1)">
+      <GameTextButton v-on:click="changeMenu(1)" class="--verticalDivide">
         New Game
       </GameTextButton>
-      <GameTextButton v-on:click="changeMenu(2)">
+      <GameTextButton v-on:click="changeMenu(2)" class="--verticalDivide">
         Load Game
       </GameTextButton>
-      <GameTextButton v-on:click="changeMenu(3)">
+      <GameTextButton v-on:click="changeMenu(3)" class="--verticalDivide">
         About
       </GameTextButton>
     </div>

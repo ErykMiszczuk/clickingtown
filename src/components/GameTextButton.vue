@@ -29,7 +29,6 @@ export default {
   text-transform: uppercase;
   text-align: center;
   font-family: 'Rubik', sans-serif;
-  margin-bottom: .5em;
   font-weight: 500;
   cursor: pointer;
 
@@ -37,6 +36,9 @@ export default {
     border-color: rgb(31, 150, 7);
     background-color: rgba(31, 150, 7, 0.75);
   }
-
 }
+.--verticalDivide {
+  margin-bottom: .5em;
+}
+
 </style>
