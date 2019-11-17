@@ -20,10 +20,13 @@
       <header class="menu__logo">
         <h1 class="menu__logoText">New Game</h1>
       </header>
-      <label for="saveName">Save Name</label>
-      <input type="text" name="saveName" id="saveName">
-      <GameTextButton>
+      <label for="saveName" class="menu__inputLabel">Save Name</label>
+      <input type="text" name="saveName" id="saveName" class="menu__input" v-model="saveName" placeholder="Give Me New Name!">
+      <GameTextButton v-on:click="handleStartNewGame" class="--verticalDivide">
         Start New Game
+      </GameTextButton>
+      <GameTextButton v-on:click="changeMenu(0)" class="--verticalDivide">
+        Go back
       </GameTextButton>
     </div>
 
@@ -46,6 +49,9 @@
           </li>
         </ul>
       </div>
+      <GameTextButton v-on:click="changeMenu(0)" class="--verticalDivide">
+        Go back
+      </GameTextButton>
     </div>
 
     <div class="home__menu" v-if="menu == 3">
@@ -59,6 +65,9 @@
           </header>
         </section>
       </article>
+      <GameTextButton v-on:click="changeMenu(0)" class="--verticalDivide">
+        Go back
+      </GameTextButton>
     </div>
 
     <footer class="game__footer">
@@ -73,6 +82,7 @@
 // @ is an alias to /src
 import HelloWorld from "@/components/HelloWorld.vue";
 import GameTextButton from "@/components/GameTextButton.vue";
+import { mapState, mapMutations } from 'vuex';
 
 export default {
   name: "home",
@@ -83,25 +93,21 @@ export default {
   data() {
     return {
       menu: 0,
-      saves: [
-        {
-          name: undefined,
-          resources: {
-            food: 0,
-            materials: 0,
-            weapons: 0,
-            culture: 0,
-            knowledge: 0,
-          }
-        }
-      ]
+      saveId: 0,
+      saveName: null,
     }
   },
   methods: {
     changeMenu(pageNuber) {
       this.menu = pageNuber
+    },
+    handleStartNewGame() {
+      this.$store.commit('newSave', {name: this.saveName});
     }
-  }
+  },
+  computed: mapState({
+    saves: state => state.saves,
+  })
 };
 </script>
 
@@ -133,6 +139,21 @@ export default {
   color: aliceblue;
   font-family: 'Rubik', sans-serif;
   font-size: 3rem;
+}
+
+.menu__inputLabel {
+  color: aliceblue;
+  font-family: 'Rubik', serif;
+}
+
+.menu__input {
+  background-color: aliceblue;
+  border-style: solid;
+  border-color: rgb(7, 33, 150);
+  border-width: 3px;
+  border-radius: .5em;
+  padding: .5em;
+  margin-bottom: .5em;
 }
 
 .game__footer {
