@@ -1,76 +1,86 @@
 <template>
   <div class="home">
 
-    <div class="home__menu" v-if="menu == 0">
-      <header class="menu__logo">
-        <h1 class="menu__logoText">Clicking Town</h1>
-      </header>
-      <GameTextButton v-on:click="changeMenu(1)" class="--verticalDivide">
-        New Game
-      </GameTextButton>
-      <GameTextButton v-on:click="changeMenu(2)" class="--verticalDivide">
-        Load Game
-      </GameTextButton>
-      <GameTextButton v-on:click="changeMenu(3)" class="--verticalDivide">
-        About
-      </GameTextButton>
-    </div>
+    <div class="home__panel"></div>
 
-    <div class="home__menu" v-if="menu == 1">
-      <header class="menu__logo">
-        <h1 class="menu__logoText">New Game</h1>
-      </header>
-      <label for="saveName" class="menu__inputLabel">Save Name</label>
-      <input type="text" name="saveName" id="saveName" class="menu__input" v-model="saveName" placeholder="Give Me New Name!">
-      <GameTextButton v-on:click="handleStartNewGame" class="--verticalDivide">
-        Start New Game
-      </GameTextButton>
-      <GameTextButton v-on:click="changeMenu(0)" class="--verticalDivide">
-        Go back
-      </GameTextButton>
-    </div>
+    <div class="home__main">
 
-    <div class="home__menu" v-if="menu == 2">
-      <header class="menu__logo">
-        <h1 class="menu__logoText">Load Game</h1>
-      </header>
-      <div class="saveGame" v-for="(save, key) in saves" v-bind:key="key">
-        <span class="saveGame__name">
-          {{ save.name || 'Empty' }}
-        </span>
-        <ul class="saveGame__resources">
-          <li class="resourcesItem" v-for="(value, name) in save.resources" v-bind:key="name">
-            <span class="resourcesItem__name">
-              {{ name }}
-            </span>
-            <span class="resourcesItem__value">
-              {{ value }}
-            </span>
-          </li>
-        </ul>
+      <div class="home__menu" v-if="menu == 0">
+        <header class="menu__logo">
+          <h1 class="menu__logoText">Clicking Town</h1>
+        </header>
+        <div class="menu">
+          <GameTextButton v-on:click="changeMenu(1)" class="--verticalDivide">
+            New Game
+          </GameTextButton>
+          <GameTextButton v-on:click="changeMenu(2)" class="--verticalDivide">
+            Load Game
+          </GameTextButton>
+          <GameTextButton v-on:click="changeMenu(3)" class="--verticalDivide">
+            About
+          </GameTextButton>
+        </div>
       </div>
-      <GameTextButton v-on:click="changeMenu(0)" class="--verticalDivide">
-        Go back
-      </GameTextButton>
+
+      <div class="home__menu" v-if="menu == 1">
+        <header class="menu__logo">
+          <h1 class="menu__logoText">New Game</h1>
+        </header>
+        <label for="saveName" class="menu__inputLabel">Save Name</label>
+        <input type="text" name="saveName" id="saveName" class="menu__input" v-model="saveName" placeholder="Give Me New Name!">
+        <GameTextButton v-on:click="handleStartNewGame" class="--verticalDivide">
+          Start New Game
+        </GameTextButton>
+        <GameTextButton v-on:click="changeMenu(0)" class="--verticalDivide">
+          Go back
+        </GameTextButton>
+      </div>
+
+      <div class="home__menu" v-if="menu == 2">
+        <header class="menu__logo">
+          <h1 class="menu__logoText">Load Game</h1>
+        </header>
+        <div class="saveGame" v-for="(save, key) in saves" v-bind:key="key">
+          <span class="saveGame__name">
+            {{ save.name || 'Empty' }}
+          </span>
+          <ul class="saveGame__resources">
+            <li class="resourcesItem" v-for="(value, name) in save.resources" v-bind:key="name">
+              <span class="resourcesItem__name">
+                {{ name }}
+              </span>
+              <span class="resourcesItem__value">
+                {{ value }}
+              </span>
+            </li>
+          </ul>
+        </div>
+        <GameTextButton v-on:click="changeMenu(0)" class="--verticalDivide">
+          Go back
+        </GameTextButton>
+      </div>
+
+      <div class="home__menu" v-if="menu == 3">
+        <header class="menu__logo">
+          <h1 class="menu__logoText">About</h1>
+        </header>
+        <article class="credits">
+          <section>
+            <header>
+              License
+            </header>
+          </section>
+        </article>
+        <GameTextButton v-on:click="changeMenu(0)" class="--verticalDivide">
+          Go back
+        </GameTextButton>
+      </div>
+
     </div>
 
-    <div class="home__menu" v-if="menu == 3">
-      <header class="menu__logo">
-        <h1 class="menu__logoText">About</h1>
-      </header>
-      <article class="credits">
-        <section>
-          <header>
-            License
-          </header>
-        </section>
-      </article>
-      <GameTextButton v-on:click="changeMenu(0)" class="--verticalDivide">
-        Go back
-      </GameTextButton>
-    </div>
+    <div class="home__panel"></div>
 
-    <footer class="game__footer">
+    <footer class="home__footer">
       <small>
         Made by Eryk Miszczuk
       </small>
@@ -114,7 +124,7 @@ export default {
 <style lang="scss" scoped>
 .home {
   display: flex;
-  justify-content: center;
+  justify-content: stretch;
   width: 100%;
   min-width: 240px;
   max-width: 100%;
@@ -129,16 +139,35 @@ export default {
   background-position: bottom;
 }
 
+.home__main {
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
+  padding: .5em
+}
+
+.menu {
+  width: 50%;
+}
+
 .home__menu {
   display: flex;
   flex-direction: column;
-  max-width: 60rem;
+  width: 700px;
+  min-width: 240px;
+  align-items: center;
+}
+
+.home__panel {
+  flex: 1 1;
+  background-color: aqua;
 }
 
 .menu__logoText {
   color: aliceblue;
   font-family: 'Rubik', sans-serif;
   font-size: 3rem;
+  text-align: center;
 }
 
 .menu__inputLabel {
@@ -156,7 +185,7 @@ export default {
   margin-bottom: .5em;
 }
 
-.game__footer {
+.home__footer {
   position: absolute;
   bottom: 0;
   width: 100%;
@@ -166,5 +195,22 @@ export default {
   text-align: center;
   color: whitesmoke;
   font-family: 'Open Sans'
+}
+
+@media screen and (max-width: 702px) {
+  .home__panel {
+    width: 0;
+    display: none;
+  }
+
+  .home__menu {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 570px) {
+  .menu {
+    width: 65%;
+  }
 }
 </style>
