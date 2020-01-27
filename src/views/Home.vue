@@ -26,54 +26,62 @@
         <header class="menu__logo">
           <h1 class="menu__logoText">New Game</h1>
         </header>
-        <label for="saveName" class="menu__inputLabel">Save Name</label>
-        <input type="text" name="saveName" id="saveName" class="menu__input" v-model="saveName" placeholder="Give Me New Name!">
-        <GameTextButton v-on:click="handleStartNewGame" class="--verticalDivide">
-          Start New Game
-        </GameTextButton>
-        <GameTextButton v-on:click="changeMenu(0)" class="--verticalDivide">
-          Go back
-        </GameTextButton>
+        <div class="menu">
+          <div class="menu__form">
+            <label for="saveName" class="menu__inputLabel">Save Name</label>
+            <input type="text" name="saveName" id="saveName" class="menu__input" v-model="saveName" placeholder="Give Me New Name!">
+          </div>
+          <GameTextButton v-on:click="handleStartNewGame" class="--verticalDivide">
+            Start New Game
+          </GameTextButton>
+          <GameTextButton v-on:click="changeMenu(0)" class="--verticalDivide">
+            Go back
+          </GameTextButton>
+        </div>
       </div>
 
       <div class="home__menu" v-if="menu == 2">
         <header class="menu__logo">
           <h1 class="menu__logoText">Load Game</h1>
         </header>
-        <div class="saveGame" v-for="(save, key) in saves" v-bind:key="key">
-          <span class="saveGame__name">
-            {{ save.name || 'Empty' }}
-          </span>
-          <ul class="saveGame__resources">
-            <li class="resourcesItem" v-for="(value, name) in save.resources" v-bind:key="name">
-              <span class="resourcesItem__name">
-                {{ name }}
-              </span>
-              <span class="resourcesItem__value">
-                {{ value }}
-              </span>
-            </li>
-          </ul>
+        <div class="menu">
+          <div class="saveGame" v-for="(save, key) in saves" v-bind:key="key">
+            <span class="saveGame__name">
+              {{ save.name || 'Empty' }}
+            </span>
+            <ul class="saveGame__resources">
+              <li class="resourcesItem" v-for="(value, name) in save.resources" v-bind:key="name">
+                <span class="resourcesItem__name">
+                  {{ name }}
+                </span>
+                <span class="resourcesItem__value">
+                  {{ value }}
+                </span>
+              </li>
+            </ul>
+          </div>
+          <GameTextButton v-on:click="changeMenu(0)" class="--verticalDivide">
+            Go back
+          </GameTextButton>
         </div>
-        <GameTextButton v-on:click="changeMenu(0)" class="--verticalDivide">
-          Go back
-        </GameTextButton>
       </div>
 
       <div class="home__menu" v-if="menu == 3">
         <header class="menu__logo">
           <h1 class="menu__logoText">About</h1>
         </header>
-        <article class="credits">
-          <section>
-            <header>
-              License
-            </header>
-          </section>
-        </article>
-        <GameTextButton v-on:click="changeMenu(0)" class="--verticalDivide">
-          Go back
-        </GameTextButton>
+        <div class="menu">
+          <article class="credits">
+            <section>
+              <header>
+                License
+              </header>
+            </section>
+          </article>
+          <GameTextButton v-on:click="changeMenu(0)" class="--verticalDivide">
+            Go back
+          </GameTextButton>
+        </div>
       </div>
 
     </div>
@@ -103,8 +111,7 @@ export default {
   data() {
     return {
       menu: 0,
-      saveId: 0,
-      saveName: null,
+      saveName: '',
     }
   },
   methods: {
@@ -160,7 +167,11 @@ export default {
 
 .home__panel {
   flex: 1 1;
-  background-color: aqua;
+}
+
+.menu__form {
+  display: flex;
+  flex-direction: column;
 }
 
 .menu__logoText {
