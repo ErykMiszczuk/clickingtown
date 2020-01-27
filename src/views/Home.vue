@@ -100,7 +100,7 @@
 // @ is an alias to /src
 import HelloWorld from "@/components/HelloWorld.vue";
 import GameTextButton from "@/components/GameTextButton.vue";
-import { mapState, mapMutations } from 'vuex';
+import { mapState, mapMutations, mapActions } from 'vuex';
 
 export default {
   name: "home",
@@ -114,13 +114,23 @@ export default {
       saveName: '',
     }
   },
+  created() {
+    this.getSavesFromLocalStorage();
+  },
   methods: {
     changeMenu(pageNuber) {
-      this.menu = pageNuber
+      this.menu = pageNuber;
     },
     handleStartNewGame() {
-      this.$store.commit('newSave', {name: this.saveName});
-    }
+      this.createNewSave({name: this.saveName});
+    },
+    ...mapMutations([
+      'newSave'
+    ]),
+    ...mapActions([
+      'createNewSave',
+      'getSavesFromLocalStorage'
+    ])
   },
   computed: mapState({
     saves: state => state.saves,

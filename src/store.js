@@ -10,6 +10,7 @@ export default new Vuex.Store({
   },
   mutations: {
     newSave(state, payload) {
+      console.warn(payload)
       state.saves.push(
         {
           name: payload.name,
@@ -29,15 +30,23 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    createNewSave({ commit, dispatch }, payload) {
+      commit('newSave', payload);
+      dispatch('setSavesInLocalStorage');
+    },
     getSavesFromLocalStorage({commit, state}) {
       const localStorage = window.localStorage;
       const saves = JSON.parse(localStorage.getItem('saves'));
-      commit('setSaves', {saves});
+      if (saves) {
+        commit('setSaves', {saves});
+      }
     },
     setSavesInLocalStorage({commit, state}) {
       const localStorage = window.localStorage;
-      const saves = JSON.parse(state.saves);
-      localStorage.setItem('saves', saves);
+      const saves = JSON.stringify(state.saves);
+      if (saves) {
+        localStorage.setItem('saves', saves);
+      }
     }
   }
 });
