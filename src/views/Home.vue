@@ -59,6 +59,9 @@
                 </span>
               </li>
             </ul>
+            <div class="saveGame__options">
+              <div class="options__delete" @click="handleDeleteSaveGame(save.name)">DELETE</div>
+            </div>
           </div>
           <GameTextButton v-on:click="changeMenu(0)" class="--verticalDivide">
             Go back
@@ -124,11 +127,15 @@ export default {
     handleStartNewGame() {
       this.createNewSave({name: this.saveName});
     },
+    handleDeleteSaveGame(name) {
+      this.deleteSaveGame({name: name});
+    },
     ...mapMutations([
       'newSave'
     ]),
     ...mapActions([
       'createNewSave',
+      'deleteSaveGame',
       'getSavesFromLocalStorage'
     ])
   },
@@ -139,6 +146,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../styles/mixins.scss";
+
 .home {
   display: flex;
   justify-content: stretch;
@@ -185,15 +194,13 @@ export default {
 }
 
 .menu__logoText {
-  color: aliceblue;
-  font-family: 'Rubik', sans-serif;
+  @include basicTextMixin;
   font-size: 3rem;
   text-align: center;
 }
 
 .menu__inputLabel {
-  color: aliceblue;
-  font-family: 'Rubik', serif;
+  @include basicTextMixin;
 }
 
 .menu__input {

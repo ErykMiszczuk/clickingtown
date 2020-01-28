@@ -25,6 +25,11 @@ export default new Vuex.Store({
         }
       )
     },
+    deleteSave(state, payload) {
+      let saves = state.saves;
+      let filteredSaves = saves.filter(el => el.name != payload.name);
+      state.saves = filteredSaves;
+    },
     setSaves(state, payload) {
       state.saves = payload.saves
     }
@@ -32,6 +37,10 @@ export default new Vuex.Store({
   actions: {
     createNewSave({ commit, dispatch }, payload) {
       commit('newSave', payload);
+      dispatch('setSavesInLocalStorage');
+    },
+    deleteSaveGame({ commit, dispatch }, payload) {
+      commit('deleteSave', payload);
       dispatch('setSavesInLocalStorage');
     },
     getSavesFromLocalStorage({commit, state}) {

@@ -1,0 +1,11 @@
+@mixin borderUiMixin($borderColor, $backgroundColor) {
+  border-radius: .5em;
+  border-style: solid;
+  border-color: $borderColor;
+  background-color: $backgroundColor;
+}
+
+@mixin basicTextMixin {
+  color: aliceblue;
+  font-family: 'Rubik', sans-serif;
+}

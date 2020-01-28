@@ -14,11 +14,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "../styles/mixins.scss";
+@import "../styles/variables.scss";
+
 .gameTextButton {
-  border-radius: .5em;
-  border-color: rgb(7, 33, 150);
-  background-color: rgba(7, 33, 150, 0.75);
-  border-style: solid;
+  @include borderUiMixin($interactiveBlueAccent, $interactiveBlueBackground);
   padding: .5em;
   display: flex;
   align-items: center;
@@ -33,8 +33,7 @@ export default {
   cursor: pointer;
 
   &:hover {
-    border-color: rgb(31, 150, 7);
-    background-color: rgba(31, 150, 7, 0.75);
+    @include borderUiMixin($acceptGreenAccent, $acceptGreenBackground);
   }
 }
 .--verticalDivide {
