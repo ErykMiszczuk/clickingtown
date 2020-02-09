@@ -60,10 +60,15 @@
               </li>
             </ul>
             <div class="saveGame__options">
-              <div class="options__delete" @click="handleDeleteSaveGame(save.name)">DELETE</div>
+              <GameTextButton>
+                Load save
+              </GameTextButton>
+              <GameTextButton @click="handleDeleteSaveGame(save.name)">
+                Delete save
+              </GameTextButton>
             </div>
           </div>
-          <GameTextButton v-on:click="changeMenu(0)" class="--verticalDivide">
+          <GameTextButton @click="changeMenu(0)" class="--verticalDivide">
             Go back
           </GameTextButton>
         </div>
@@ -147,6 +152,7 @@ export default {
 
 <style lang="scss" scoped>
 @import "../styles/mixins.scss";
+@import "../styles/variables.scss";
 
 .home {
   display: flex;
@@ -211,6 +217,26 @@ export default {
   border-radius: .5em;
   padding: .5em;
   margin-bottom: .5em;
+}
+
+.saveGame {
+  @include basicTextMixin;
+  @include borderUiMixin($interactiveBlueAccent, $interactiveBlueBackground);
+  padding: .5em;
+}
+
+.saveGame__resources {
+  @include borderUiMixin($inactiveGreyAccent, $noBackground);
+  padding: .5em;
+  list-style-type: none;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.saveGame__options {
+  display: flex;
 }
 
 .home__footer {
