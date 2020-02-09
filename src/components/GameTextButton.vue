@@ -1,5 +1,5 @@
 <template>
-  <div class="gameTextButton" v-on:click="$emit('click', $event)">
+  <div :class="btnStyle" v-on:click="$emit('click', $event)">
       <slot></slot>
   </div>
 </template>
@@ -7,9 +7,19 @@
 <script>
 export default {
   name: "GameTextButton",
-  // props: {
-  //   msg: String
-  // }
+  props: {
+    inactive: Boolean,
+    danger: Boolean,
+    accept: Boolean,
+  },
+  computed: {
+    btnStyle() {
+      if (this.inactive) return 'gameTextButton--inactive';
+      else if (this.danger) return 'gameTextButton--danger';
+      else if (this.accept) return 'gameTextButton--accept';
+      else return 'gameTextButton';
+    }
+  }
 };
 </script>
 
@@ -32,8 +42,31 @@ export default {
   font-weight: 500;
   cursor: pointer;
 
-  &:hover {
+  &--inactive {
+    @extend .gameTextButton;
+    @include borderUiMixin($inactiveGreyAccent, $inactiveGreyBackground);
+    
+    &:hover {
+      @include borderUiMixin($inactiveGreyAccent, $inactiveGreyAccent);
+    }
+  }
+
+  &--danger {
+    @extend .gameTextButton;
+    @include borderUiMixin($dangerRedAccent, $dangerRedBackground);
+    
+    &:hover {
+      @include borderUiMixin($dangerRedAccent, $dangerRedAccent);
+    }
+  }
+
+  &--accept {
+    @extend .gameTextButton;
     @include borderUiMixin($acceptGreenAccent, $acceptGreenBackground);
+    
+    &:hover {
+      @include borderUiMixin($acceptGreenAccent, $acceptGreenAccent);
+    }
   }
 }
 .--verticalDivide {

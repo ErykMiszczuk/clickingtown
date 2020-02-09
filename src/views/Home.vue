@@ -60,10 +60,10 @@
               </li>
             </ul>
             <div class="saveGame__options">
-              <GameTextButton>
+              <GameTextButton accept>
                 Load save
               </GameTextButton>
-              <GameTextButton @click="handleDeleteSaveGame(save.name)">
+              <GameTextButton danger @click="handleDeleteSaveGame(save.name)">
                 Delete save
               </GameTextButton>
             </div>
@@ -150,7 +150,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import "../styles/mixins.scss";
 @import "../styles/variables.scss";
 
