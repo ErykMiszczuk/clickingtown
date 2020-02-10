@@ -105,15 +105,12 @@
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
 import GameTextButton from "@/components/GameTextButton.vue";
 import { mapState, mapMutations, mapActions } from 'vuex';
 
 export default {
   name: "home",
   components: {
-    HelloWorld,
     GameTextButton
   },
   data() {
