@@ -6,24 +6,22 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     saves: [],
-    saveId: null,
+    saveId: null
   },
   mutations: {
     newSave(state, payload) {
-      console.warn(payload)
-      state.saves.push(
-        {
-          name: payload.name,
-          resources: {
-            food: 0,
-            materials: 0,
-            weapons: 0,
-            culture: 0,
-            knowledge: 0,
-          },
-          buildings: []
-        }
-      )
+      console.warn(payload);
+      state.saves.push({
+        name: payload.name,
+        resources: {
+          food: 0,
+          materials: 0,
+          weapons: 0,
+          culture: 0,
+          knowledge: 0
+        },
+        buildings: []
+      });
     },
     deleteSave(state, payload) {
       let saves = state.saves;
@@ -31,30 +29,50 @@ export default new Vuex.Store({
       state.saves = filteredSaves;
     },
     setSaves(state, payload) {
-      state.saves = payload.saves
+      state.saves = payload.saves;
+    },
+    addFoodResource(state, payload) {
+      let saveId = state.saveId;
+      state.saves[saveId].resources.food += payload.value;
+    },
+    addWeaponsResource(state, payload) {
+      let saveId = state.saveId;
+      state.saves[saveId].resources.weapons += payload.value;
+    },
+    addKnowledgeResource(state, payload) {
+      let saveId = state.saveId;
+      state.saves[saveId].resources.knowledge += payload.value;
+    },
+    addMaterialsResource(state, payload) {
+      let saveId = state.saveId;
+      state.saves[saveId].resources.materials += payload.value;
+    },
+    addCultureResource(state, payload) {
+      let saveId = state.saveId;
+      state.saves[saveId].resources.culture += payload.value;
     }
   },
   actions: {
     createNewSave({ commit, dispatch }, payload) {
-      commit('newSave', payload);
-      dispatch('setSavesInLocalStorage');
+      commit("newSave", payload);
+      dispatch("setSavesInLocalStorage");
     },
     deleteSaveGame({ commit, dispatch }, payload) {
-      commit('deleteSave', payload);
-      dispatch('setSavesInLocalStorage');
+      commit("deleteSave", payload);
+      dispatch("setSavesInLocalStorage");
     },
-    getSavesFromLocalStorage({commit, state}) {
+    getSavesFromLocalStorage({ commit, state }) {
       const localStorage = window.localStorage;
-      const saves = JSON.parse(localStorage.getItem('saves'));
+      const saves = JSON.parse(localStorage.getItem("saves"));
       if (saves) {
-        commit('setSaves', {saves});
+        commit("setSaves", { saves });
       }
     },
-    setSavesInLocalStorage({commit, state}) {
+    setSavesInLocalStorage({ commit, state }) {
       const localStorage = window.localStorage;
       const saves = JSON.stringify(state.saves);
       if (saves) {
-        localStorage.setItem('saves', saves);
+        localStorage.setItem("saves", saves);
       }
     }
   }

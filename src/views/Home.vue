@@ -1,10 +1,8 @@
 <template>
   <div class="home">
-
     <div class="home__panel"></div>
 
     <div class="home__main">
-
       <div class="home__menu" v-if="menu == 0">
         <header class="menu__logo">
           <h1 class="menu__logoText">Clicking Town</h1>
@@ -29,9 +27,19 @@
         <div class="menu">
           <div class="menu__form">
             <label for="saveName" class="menu__inputLabel">Save Name</label>
-            <input type="text" name="saveName" id="saveName" class="menu__input" v-model="saveName" placeholder="Give Me New Name!">
+            <input
+              type="text"
+              name="saveName"
+              id="saveName"
+              class="menu__input"
+              v-model="saveName"
+              placeholder="Give Me New Name!"
+            />
           </div>
-          <GameTextButton v-on:click="handleStartNewGame" class="--verticalDivide">
+          <GameTextButton
+            v-on:click="handleStartNewGame"
+            class="--verticalDivide"
+          >
             Start New Game
           </GameTextButton>
           <GameTextButton v-on:click="changeMenu(0)" class="--verticalDivide">
@@ -47,10 +55,14 @@
         <div class="menu">
           <div class="saveGame" v-for="(save, key) in saves" v-bind:key="key">
             <span class="saveGame__name">
-              {{ save.name || 'Empty' }}
+              {{ save.name || "Empty" }}
             </span>
             <ul class="saveGame__resources">
-              <li class="resourcesItem" v-for="(value, name) in save.resources" v-bind:key="name">
+              <li
+                class="resourcesItem"
+                v-for="(value, name) in save.resources"
+                v-bind:key="name"
+              >
                 <span class="resourcesItem__name">
                   {{ name }}
                 </span>
@@ -91,7 +103,6 @@
           </GameTextButton>
         </div>
       </div>
-
     </div>
 
     <div class="home__panel"></div>
@@ -106,7 +117,7 @@
 
 <script>
 import GameTextButton from "@/components/GameTextButton.vue";
-import { mapState, mapMutations, mapActions } from 'vuex';
+import { mapState, mapMutations, mapActions } from "vuex";
 
 export default {
   name: "home",
@@ -116,8 +127,8 @@ export default {
   data() {
     return {
       menu: 0,
-      saveName: '',
-    }
+      saveName: ""
+    };
   },
   created() {
     this.getSavesFromLocalStorage();
@@ -127,22 +138,20 @@ export default {
       this.menu = pageNuber;
     },
     handleStartNewGame() {
-      this.createNewSave({name: this.saveName});
+      this.createNewSave({ name: this.saveName });
     },
     handleDeleteSaveGame(name) {
-      this.deleteSaveGame({name: name});
+      this.deleteSaveGame({ name: name });
     },
-    ...mapMutations([
-      'newSave'
-    ]),
+    ...mapMutations(["newSave"]),
     ...mapActions([
-      'createNewSave',
-      'deleteSaveGame',
-      'getSavesFromLocalStorage'
+      "createNewSave",
+      "deleteSaveGame",
+      "getSavesFromLocalStorage"
     ])
   },
   computed: mapState({
-    saves: state => state.saves,
+    saves: state => state.saves
   })
 };
 </script>
@@ -160,7 +169,7 @@ export default {
   height: 100vh;
   min-height: 360px;
   max-height: 100vh;
-  background-color: #0C1122;
+  background-color: #0c1122;
   background-image: url("../assets/menu_background.png");
   background-size: cover;
   background-repeat: no-repeat;
@@ -172,7 +181,7 @@ export default {
   display: flex;
   justify-content: center;
   flex-grow: 1;
-  padding: .5em
+  padding: 0.5em;
 }
 
 .menu {
@@ -211,20 +220,20 @@ export default {
   border-style: solid;
   border-color: rgb(7, 33, 150);
   border-width: 3px;
-  border-radius: .5em;
-  padding: .5em;
-  margin-bottom: .5em;
+  border-radius: 0.5em;
+  padding: 0.5em;
+  margin-bottom: 0.5em;
 }
 
 .saveGame {
   @include basicTextMixin;
   @include borderUiMixin($interactiveBlueAccent, $interactiveBlueBackground);
-  padding: .5em;
+  padding: 0.5em;
 }
 
 .saveGame__resources {
   @include borderUiMixin($inactiveGreyAccent, $noBackground);
-  padding: .5em;
+  padding: 0.5em;
   list-style-type: none;
   margin: 0;
   display: flex;
@@ -245,7 +254,7 @@ export default {
   background-color: hsl(226, 48%, 8%);
   text-align: center;
   color: whitesmoke;
-  font-family: 'Open Sans'
+  font-family: "Open Sans";
 }
 
 @media screen and (max-width: 702px) {

@@ -1,6 +1,6 @@
 <template>
-  <div :class="btnStyle" v-on:click="$emit('click', $event)">
-      <slot></slot>
+  <div :class="btnStyle" @click="$emit('click', $event)">
+    <slot></slot>
   </div>
 </template>
 
@@ -10,14 +10,14 @@ export default {
   props: {
     inactive: Boolean,
     danger: Boolean,
-    accept: Boolean,
+    accept: Boolean
   },
   computed: {
     btnStyle() {
-      if (this.inactive) return 'gameTextButton--inactive';
-      else if (this.danger) return 'gameTextButton--danger';
-      else if (this.accept) return 'gameTextButton--accept';
-      else return 'gameTextButton';
+      if (this.inactive) return "gameTextButton--inactive";
+      else if (this.danger) return "gameTextButton--danger";
+      else if (this.accept) return "gameTextButton--accept";
+      else return "gameTextButton";
     }
   }
 };
@@ -29,7 +29,7 @@ export default {
 
 .gameTextButton {
   @include borderUiMixin($interactiveBlueAccent, $interactiveBlueBackground);
-  padding: .5em;
+  padding: 0.5em;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -38,14 +38,14 @@ export default {
   text-shadow: 0 0 4px rgba(11, 11, 11, 1);
   text-transform: uppercase;
   text-align: center;
-  font-family: 'Rubik', sans-serif;
+  font-family: "Rubik", sans-serif;
   font-weight: 500;
   cursor: pointer;
 
   &--inactive {
     @extend .gameTextButton;
     @include borderUiMixin($inactiveGreyAccent, $inactiveGreyBackground);
-    
+
     &:hover {
       @include borderUiMixin($inactiveGreyAccent, $inactiveGreyAccent);
     }
@@ -54,7 +54,7 @@ export default {
   &--danger {
     @extend .gameTextButton;
     @include borderUiMixin($dangerRedAccent, $dangerRedBackground);
-    
+
     &:hover {
       @include borderUiMixin($dangerRedAccent, $dangerRedAccent);
     }
@@ -63,14 +63,13 @@ export default {
   &--accept {
     @extend .gameTextButton;
     @include borderUiMixin($acceptGreenAccent, $acceptGreenBackground);
-    
+
     &:hover {
       @include borderUiMixin($acceptGreenAccent, $acceptGreenAccent);
     }
   }
 }
 .--verticalDivide {
-  margin-bottom: .5em;
+  margin-bottom: 0.5em;
 }
-
 </style>
