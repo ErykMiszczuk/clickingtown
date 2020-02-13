@@ -8,13 +8,13 @@
           <h1 class="menu__logoText">Clicking Town</h1>
         </header>
         <div class="menu">
-          <GameTextButton v-on:click="changeMenu(1)" class="--verticalDivide">
+          <GameTextButton @click="changeMenu(1)" class="--verticalDivide">
             New Game
           </GameTextButton>
-          <GameTextButton v-on:click="changeMenu(2)" class="--verticalDivide">
+          <GameTextButton @click="changeMenu(2)" class="--verticalDivide">
             Load Game
           </GameTextButton>
-          <GameTextButton v-on:click="changeMenu(3)" class="--verticalDivide">
+          <GameTextButton @click="changeMenu(3)" class="--verticalDivide">
             About
           </GameTextButton>
         </div>
@@ -37,12 +37,12 @@
             />
           </div>
           <GameTextButton
-            v-on:click="handleStartNewGame"
+            @click="handleStartNewGame"
             class="--verticalDivide"
           >
             Start New Game
           </GameTextButton>
-          <GameTextButton v-on:click="changeMenu(0)" class="--verticalDivide">
+          <GameTextButton @click="changeMenu(0)" class="--verticalDivide">
             Go back
           </GameTextButton>
         </div>
@@ -53,7 +53,7 @@
           <h1 class="menu__logoText">Load Game</h1>
         </header>
         <div class="menu">
-          <div class="saveGame" v-for="(save, key) in saves" v-bind:key="key">
+          <div class="saveGame" v-for="(save, key) in saves" :key="key">
             <span class="saveGame__name">
               {{ save.name || "Empty" }}
             </span>
@@ -61,7 +61,7 @@
               <li
                 class="resourcesItem"
                 v-for="(value, name) in save.resources"
-                v-bind:key="name"
+                :key="name"
               >
                 <span class="resourcesItem__name">
                   {{ name }}
@@ -98,7 +98,7 @@
               </header>
             </section>
           </article>
-          <GameTextButton v-on:click="changeMenu(0)" class="--verticalDivide">
+          <GameTextButton @click="changeMenu(0)" class="--verticalDivide">
             Go back
           </GameTextButton>
         </div>

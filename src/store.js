@@ -6,7 +6,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     saves: [],
-    saveId: null
+    saveId: null,
+    currentSave: null
   },
   mutations: {
     newSave(state, payload) {
@@ -30,6 +31,9 @@ export default new Vuex.Store({
     },
     setSaves(state, payload) {
       state.saves = payload.saves;
+    },
+    setCurrentSave(state, payload) {
+      state.currentSave = state.saves[payload.saveId];
     },
     addFoodResource(state, payload) {
       let saveId = state.saveId;
