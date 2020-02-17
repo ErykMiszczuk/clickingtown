@@ -53,33 +53,37 @@
           <h1 class="menu__logoText">Load Game</h1>
         </header>
         <div class="menu">
-          <div class="saveGame" v-for="(save, key) in saves" :key="key">
-            <span class="saveGame__name">
-              {{ save.name || "Empty" }}
-            </span>
-            <ul class="saveGame__resources">
-              <li
-                class="resourcesItem"
-                v-for="(value, name) in save.resources"
-                :key="name"
-              >
-                <span class="resourcesItem__name">
-                  {{ name }}
-                </span>
-                <span class="resourcesItem__value">
-                  {{ value }}
-                </span>
-              </li>
-            </ul>
-            <div class="saveGame__options">
-              <GameTextButton accept>
-                Load save
-              </GameTextButton>
-              <GameTextButton danger @click="handleDeleteSaveGame(save.name)">
-                Delete save
-              </GameTextButton>
-            </div>
-          </div>
+          <ul class="list__saves">
+
+            <li class="saveGame --verticalDivide" v-for="(save, key) in saves" :key="key">
+              <span class="saveGame__name">
+                {{ save.name || "Empty" }}
+              </span>
+              <ul class="saveGame__resources">
+                <li
+                  class="resourcesItem"
+                  v-for="(value, name) in save.resources"
+                  :key="name"
+                >
+                  <span class="resourcesItem__name">
+                    {{ name }}
+                  </span>
+                  <span class="resourcesItem__value">
+                    {{ value }}
+                  </span>
+                </li>
+              </ul>
+              <div class="saveGame__options">
+                <GameTextButton accept>
+                  Load save
+                </GameTextButton>
+                <GameTextButton danger @click="handleDeleteSaveGame(save.name)">
+                  Delete save
+                </GameTextButton>
+              </div>
+            </li>
+
+          </ul>
           <GameTextButton @click="changeMenu(0)" class="--verticalDivide">
             Go back
           </GameTextButton>
@@ -225,6 +229,14 @@ export default {
   margin-bottom: 0.5em;
 }
 
+.list__saves {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+  max-height: 56vh;
+}
+
 .saveGame {
   @include basicTextMixin;
   @include borderUiMixin($interactiveBlueAccent, $interactiveBlueBackground);
@@ -241,6 +253,10 @@ export default {
   flex-wrap: wrap;
 }
 
+.resourcesItem {
+  margin-right: 0.5em;
+}
+
 .saveGame__options {
   display: flex;
 }
@@ -255,6 +271,10 @@ export default {
   text-align: center;
   color: whitesmoke;
   font-family: "Open Sans";
+}
+
+.--verticalDivide {
+  margin-bottom: 0.5em;
 }
 
 @media screen and (max-width: 702px) {

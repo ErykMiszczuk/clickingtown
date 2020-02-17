@@ -57,22 +57,22 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    createNewSave({ commit, dispatch }, payload) {
+    async createNewSave({ commit, dispatch }, payload) {
       commit("newSave", payload);
-      dispatch("setSavesInLocalStorage");
+      await dispatch("setSavesInLocalStorage");
     },
-    deleteSaveGame({ commit, dispatch }, payload) {
+    async deleteSaveGame({ commit, dispatch }, payload) {
       commit("deleteSave", payload);
-      dispatch("setSavesInLocalStorage");
+      await dispatch("setSavesInLocalStorage");
     },
-    getSavesFromLocalStorage({ commit, state }) {
+    async getSavesFromLocalStorage({ commit, state }) {
       const localStorage = window.localStorage;
       const saves = JSON.parse(localStorage.getItem("saves"));
       if (saves) {
         commit("setSaves", { saves });
       }
     },
-    setSavesInLocalStorage({ commit, state }) {
+    async setSavesInLocalStorage({ commit, state }) {
       const localStorage = window.localStorage;
       const saves = JSON.stringify(state.saves);
       if (saves) {

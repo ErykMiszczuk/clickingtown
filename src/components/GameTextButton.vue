@@ -42,6 +42,10 @@ export default {
   font-weight: 500;
   cursor: pointer;
 
+  &:hover {
+    @include borderUiMixin($interactiveBlueAccent, $interactiveBlueAccent);
+  }
+
   &--inactive {
     @extend .gameTextButton;
     @include borderUiMixin($inactiveGreyAccent, $inactiveGreyBackground);
@@ -69,7 +73,5 @@ export default {
     }
   }
 }
-.--verticalDivide {
-  margin-bottom: 0.5em;
-}
+
 </style>
