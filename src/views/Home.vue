@@ -74,7 +74,7 @@
                 </li>
               </ul>
               <div class="saveGame__options">
-                <GameTextButton accept>
+                <GameTextButton accept @click="handleLoadGame(key)">
                   Load save
                 </GameTextButton>
                 <GameTextButton danger @click="handleDeleteSaveGame(save.name)">
@@ -120,6 +120,7 @@
 </template>
 
 <script>
+import * as R from "ramda";
 import GameTextButton from "@/components/GameTextButton.vue";
 import { mapState, mapMutations, mapActions } from "vuex";
 
@@ -141,8 +142,15 @@ export default {
     changeMenu(pageNuber) {
       this.menu = pageNuber;
     },
-    handleStartNewGame() {
-      this.createNewSave({ name: this.saveName });
+    async handleStartNewGame() {
+      await this.createNewSave({ name: this.saveName });
+      let idOfSave = R.findIndex(R.propEq('name', this.saveName))(this.saves);
+      this.setSaveAsCurrentGame({ saveId: idOfSave });
+      this.$router.push('game');
+    },
+    handleLoadGame(saveId) {
+      this.setSaveAsCurrentGame({ saveId });
+      this.$router.push('game');
     },
     handleDeleteSaveGame(name) {
       this.deleteSaveGame({ name: name });
@@ -151,7 +159,8 @@ export default {
     ...mapActions([
       "createNewSave",
       "deleteSaveGame",
-      "getSavesFromLocalStorage"
+      "getSavesFromLocalStorage",
+      "setSaveAsCurrentGame"
     ])
   },
   computed: mapState({

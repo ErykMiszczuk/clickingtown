@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import * as R from "ramda";
 
 Vue.use(Vuex);
 
@@ -7,11 +8,9 @@ export default new Vuex.Store({
   state: {
     saves: [],
     saveId: null,
-    currentSave: null
   },
   mutations: {
     newSave(state, payload) {
-      console.warn(payload);
       state.saves.push({
         name: payload.name,
         resources: {
@@ -33,7 +32,7 @@ export default new Vuex.Store({
       state.saves = payload.saves;
     },
     setCurrentSave(state, payload) {
-      state.currentSave = state.saves[payload.saveId];
+      state.saveId = payload.saveId;
     },
     addFoodResource(state, payload) {
       let saveId = state.saveId;
@@ -64,6 +63,9 @@ export default new Vuex.Store({
     async deleteSaveGame({ commit, dispatch }, payload) {
       commit("deleteSave", payload);
       await dispatch("setSavesInLocalStorage");
+    },
+    async setSaveAsCurrentGame({ commit }, payload) {
+      commit("setCurrentSave", payload);
     },
     async getSavesFromLocalStorage({ commit, state }) {
       const localStorage = window.localStorage;
