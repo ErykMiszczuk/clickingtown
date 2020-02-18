@@ -1,7 +1,7 @@
 <template>
-  <div class="resourceItem">
+  <li class="resourceItem">
     <slot></slot>
-  </div>
+  </li>
 </template>
 
 <script>
@@ -16,6 +16,8 @@ export default {
 
 .resourceItem {
   @include borderUiMixin($interactiveBlueAccent, $interactiveBlueBackground);
+  @include basicTextMixin;
+  padding: 0.25em;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;

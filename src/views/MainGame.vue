@@ -1,12 +1,14 @@
 <template>
   <div class="mainGame">
     <GameMap @gather="handleGather" />
+    <ResourcesBar />
   </div>
 </template>
 
 <script>
 import GameTextButton from "@/components/GameTextButton.vue";
 import GameMap from "@/components/GameMap.vue";
+import ResourcesBar from '@/components/ResourcesBar.vue';
 import { mapState, mapMutations, mapActions } from "vuex";
 
 export default {
@@ -17,13 +19,15 @@ export default {
       mainTimer: undefined,
       resourceGaterTime: null,
       eventsHandlerList: {
-        blur: null
+        blur: null,
+        resize: null,
       }
     };
   },
   components: {
     GameTextButton,
-    GameMap
+    GameMap,
+    ResourcesBar
   },
   methods: {
     handleGather(e) {
@@ -40,7 +44,7 @@ export default {
       }
     },
     tick(currentTime) {
-      let saveEveryAmountOfSeconds = 15000;
+      let saveEveryAmountOfSeconds = 1500;
       if (!this.time) this.time = currentTime;
       if (!this.resourceGaterTime) this.resourceGaterTime = currentTime;
       let delta = currentTime - this.time;
@@ -62,15 +66,21 @@ export default {
     ])
   },
   computed: mapState({
-    saves: state => state.saves
+    saves: state => state.saves,
+    saveId: state => state.saveId
   }),
   created() {
     this.mainTimer = window.requestAnimationFrame(this.tick);
-    this.eventsHandlerList.blur = window.addEventListener('blur', this.setSavesInLocalStorage());
+    this.eventsHandlerList.blur = window.addEventListener('blur', this.setSavesInLocalStorage);
+    this.eventsHandlerList.resize = window.addEventListener('resize', this.setSavesInLocalStorage);
   },
   destroyed() {
     window.cancelAnimationFrame(this.mainTimer);
     this.mainTimer = undefined;
+    window.removeEventListener('blur', this.setSavesInLocalStorage);
+    window.removeEventListener('resize', this.setSavesInLocalStorage);
+    this.eventsHandlerList.blur = null;
+    this.eventsHandlerList.resize = null;
   }
 };
 </script>

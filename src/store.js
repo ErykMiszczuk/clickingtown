@@ -20,7 +20,7 @@ export default new Vuex.Store({
           culture: 0,
           knowledge: 0
         },
-        buildings: []
+        buildings: new Map()
       });
     },
     deleteSave(state, payload) {
