@@ -23,7 +23,11 @@
         </li>
       </ul>
       <div class="buildingOptions">
-        <GameTextButton accept @click="handleUpgrade(value.name)">
+        <GameTextButton
+          accept
+          @click="handleUpgrade(value.name)"
+          v-if="canYouAffordUpgrade(value.resourcesRequired)"
+        >
           Upgrade
         </GameTextButton>
       </div>
@@ -45,11 +49,22 @@ export default {
   },
   methods: {
     handleUpgrade(buildingName) {
-      this.upgradeBuilding({ buildingName: buildingName })
+      this.upgradeBuilding({ buildingName: buildingName });
     },
-    ...mapActions([
-      'upgradeBuilding'
-    ])
+    canYouAffordUpgrade(resourcesRequired) {
+      let { resources } = this.saves[this.saveId];
+      if (
+        resources.food >= resourcesRequired.food &&
+        resources.weapons >= resourcesRequired.weapons &&
+        resources.culture >= resourcesRequired.culture &&
+        resources.materials >= resourcesRequired.materials &&
+        resources.knowledge >= resourcesRequired.knowledge
+      ) {
+        return true;
+      }
+      return false;
+    },
+    ...mapActions(["upgradeBuilding"])
   },
   computed: mapState(["saves", "saveId"])
 };

@@ -4,7 +4,7 @@ import * as R from "ramda";
 
 Vue.use(Vuex);
 
-import buildingsList from './data/BuildingsList';
+import buildingsList from "./data/BuildingsList";
 
 export default new Vuex.Store({
   state: {
@@ -59,22 +59,32 @@ export default new Vuex.Store({
     addBuildingLevel(state, payload) {
       let save = state.saves[state.saveId];
       let buildingsList = save.buildings;
-      let index = R.findIndex(R.propEq('name', payload.buildingName))(buildingsList);
+      let index = R.findIndex(R.propEq("name", payload.buildingName))(
+        buildingsList
+      );
       if (index != -1) {
-
-        if (save.resources.food >= buildingsList[index].resourcesRequired.food &&
-          save.resources.weapons >= buildingsList[index].resourcesRequired.weapons &&
-          save.resources.culture >= buildingsList[index].resourcesRequired.culture &&
-          save.resources.materials >= buildingsList[index].resourcesRequired.materials &&
-          save.resources.knowledge >= buildingsList[index].resourcesRequired.knowledge) {
-            buildingsList[index].level += 1;
-            save.resources.food -= buildingsList[index].resourcesRequired.food;
-            save.resources.weapons -= buildingsList[index].resourcesRequired.weapons;
-            save.resources.culture -= buildingsList[index].resourcesRequired.culture;
-            save.resources.materials -= buildingsList[index].resourcesRequired.materials;
-            save.resources.knowledge -= buildingsList[index].resourcesRequired.knowledge;
-          }
-
+        if (
+          save.resources.food >= buildingsList[index].resourcesRequired.food &&
+          save.resources.weapons >=
+            buildingsList[index].resourcesRequired.weapons &&
+          save.resources.culture >=
+            buildingsList[index].resourcesRequired.culture &&
+          save.resources.materials >=
+            buildingsList[index].resourcesRequired.materials &&
+          save.resources.knowledge >=
+            buildingsList[index].resourcesRequired.knowledge
+        ) {
+          buildingsList[index].level += 1;
+          save.resources.food -= buildingsList[index].resourcesRequired.food;
+          save.resources.weapons -=
+            buildingsList[index].resourcesRequired.weapons;
+          save.resources.culture -=
+            buildingsList[index].resourcesRequired.culture;
+          save.resources.materials -=
+            buildingsList[index].resourcesRequired.materials;
+          save.resources.knowledge -=
+            buildingsList[index].resourcesRequired.knowledge;
+        }
       }
     }
   },
@@ -90,7 +100,7 @@ export default new Vuex.Store({
     async setSaveAsCurrentGame({ commit }, payload) {
       commit("setCurrentSave", payload);
     },
-    async upgradeBuilding({commit}, payload) {
+    async upgradeBuilding({ commit }, payload) {
       commit("addBuildingLevel", payload);
     },
     async getSavesFromLocalStorage({ commit, state }) {
