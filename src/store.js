@@ -61,12 +61,20 @@ export default new Vuex.Store({
       let buildingsList = save.buildings;
       let index = R.findIndex(R.propEq('name', payload.buildingName))(buildingsList);
       if (index != -1) {
-        buildingsList[index].level += 1;
-        save.resources.food -= buildingsList[index].resourcesRequired.food;
-        save.resources.weapons -= buildingsList[index].resourcesRequired.weapons;
-        save.resources.culture -= buildingsList[index].resourcesRequired.culture;
-        save.resources.materials -= buildingsList[index].resourcesRequired.materials;
-        save.resources.knowledge -= buildingsList[index].resourcesRequired.knowledge;
+
+        if (save.resources.food >= buildingsList[index].resourcesRequired.food &&
+          save.resources.weapons >= buildingsList[index].resourcesRequired.weapons &&
+          save.resources.culture >= buildingsList[index].resourcesRequired.culture &&
+          save.resources.materials >= buildingsList[index].resourcesRequired.materials &&
+          save.resources.knowledge >= buildingsList[index].resourcesRequired.knowledge) {
+            buildingsList[index].level += 1;
+            save.resources.food -= buildingsList[index].resourcesRequired.food;
+            save.resources.weapons -= buildingsList[index].resourcesRequired.weapons;
+            save.resources.culture -= buildingsList[index].resourcesRequired.culture;
+            save.resources.materials -= buildingsList[index].resourcesRequired.materials;
+            save.resources.knowledge -= buildingsList[index].resourcesRequired.knowledge;
+          }
+
       }
     }
   },
