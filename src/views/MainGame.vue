@@ -1,7 +1,8 @@
 <template>
   <div class="mainGame">
-    <GameMap @gather="handleGather" />
-    <ResourcesBar />
+    <GameMap class="mapPanel" @gather="handleGather" />
+    <ResourcesBar class="resourcesPanel"/>
+    <BuildingsList class="buildingsPanel"/>
   </div>
 </template>
 
@@ -9,6 +10,7 @@
 import GameTextButton from "@/components/GameTextButton.vue";
 import GameMap from "@/components/GameMap.vue";
 import ResourcesBar from '@/components/ResourcesBar.vue';
+import BuildingsList from "@/components/BuildingsList.vue";
 import { mapState, mapMutations, mapActions } from "vuex";
 
 export default {
@@ -27,7 +29,8 @@ export default {
   components: {
     GameTextButton,
     GameMap,
-    ResourcesBar
+    ResourcesBar,
+    BuildingsList
   },
   methods: {
     handleGather(e) {
@@ -88,4 +91,26 @@ export default {
 <style lang="scss">
 @import "../styles/mixins.scss";
 @import "../styles/variables.scss";
+
+.buildingsPanel {
+  max-width: 50vw;
+  max-height: 75vh;
+  min-height: 50vh;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  overflow-y: scroll;
+}
+
+.resourcesPanel {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.mapPanel {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
 </style>

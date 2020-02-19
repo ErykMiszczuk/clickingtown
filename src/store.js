@@ -4,23 +4,25 @@ import * as R from "ramda";
 
 Vue.use(Vuex);
 
+import buildingsList from './data/BuildingsList';
+
 export default new Vuex.Store({
   state: {
     saves: [],
-    saveId: null,
+    saveId: null
   },
   mutations: {
     newSave(state, payload) {
       state.saves.push({
         name: payload.name,
         resources: {
-          food: 0,
-          materials: 0,
-          weapons: 0,
-          culture: 0,
-          knowledge: 0
+          food: 10,
+          materials: 10,
+          weapons: 10,
+          culture: 10,
+          knowledge: 10
         },
-        buildings: new Map()
+        buildings: buildingsList.slice(0, 1)
       });
     },
     deleteSave(state, payload) {
@@ -53,6 +55,19 @@ export default new Vuex.Store({
     addCultureResource(state, payload) {
       let saveId = state.saveId;
       state.saves[saveId].resources.culture += payload.value;
+    },
+    addBuildingLevel(state, payload) {
+      let save = state.saves[state.saveId];
+      let buildingsList = save.buildings;
+      let index = R.findIndex(R.propEq('name', payload.buildingName))(buildingsList);
+      if (index != -1) {
+        buildingsList[index].level += 1;
+        save.resources.food -= buildingsList[index].resourcesRequired.food;
+        save.resources.weapons -= buildingsList[index].resourcesRequired.weapons;
+        save.resources.culture -= buildingsList[index].resourcesRequired.culture;
+        save.resources.materials -= buildingsList[index].resourcesRequired.materials;
+        save.resources.knowledge -= buildingsList[index].resourcesRequired.knowledge;
+      }
     }
   },
   actions: {
@@ -66,6 +81,9 @@ export default new Vuex.Store({
     },
     async setSaveAsCurrentGame({ commit }, payload) {
       commit("setCurrentSave", payload);
+    },
+    async upgradeBuilding({commit}, payload) {
+      commit("addBuildingLevel", payload);
     },
     async getSavesFromLocalStorage({ commit, state }) {
       const localStorage = window.localStorage;

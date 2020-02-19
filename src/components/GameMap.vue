@@ -4,16 +4,16 @@
       <img class="tile__image" src="./../assets/tiles/medieval_house.png" alt="Cabin" />
     </div>
     <div class="gameMap__tile--two" @click="$emit('gather','itr_weapons')">
-      <img class="tile__image" src="./../assets/tiles/medieval_openCastle.png" alt="Cabin" />
+      <img class="tile__image" src="./../assets/tiles/medieval_openCastle.png" alt="Castle" />
     </div>
     <div class="gameMap__tile--three" @click="$emit('gather','itr_materials')">
-      <img class="tile__image" src="./../assets/tiles/medieval_mine.png" alt="Cabin" />
+      <img class="tile__image" src="./../assets/tiles/medieval_mine.png" alt="Mine" />
     </div>
     <div class="gameMap__tile--four" @click="$emit('gather','itr_food')">
-      <img class="tile__image" src="./../assets/tiles/medieval_farm.png" alt="Cabin" />
+      <img class="tile__image" src="./../assets/tiles/medieval_farm.png" alt="Farm" />
     </div>
     <div class="gameMap__tile--five" @click="$emit('gather','itr_knowledge')">
-      <img class="tile__image" src="./../assets/tiles/medieval_church.png" alt="Cabin" />
+      <img class="tile__image" src="./../assets/tiles/medieval_church.png" alt="Church" />
     </div>
   </div>
 </template>
