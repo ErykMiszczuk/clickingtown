@@ -75,17 +75,23 @@ export default new Vuex.Store({
           save.resources.knowledge >=
             buildingsList[index].resourcesRequired.knowledge
         ) {
+          //Add building level
           buildingsList[index].level += 1;
-          save.resources.food -= buildingsList[index].resourcesRequired.food;
-          save.resources.weapons -=
-            buildingsList[index].resourcesRequired.weapons;
-          save.resources.culture -=
-            buildingsList[index].resourcesRequired.culture;
-          save.resources.materials -=
-            buildingsList[index].resourcesRequired.materials;
-          save.resources.knowledge -=
-            buildingsList[index].resourcesRequired.knowledge;
+          //Remove items from inventory
+          const { food, weapons, culture, materials, knowledge } = buildingsList[index].resourcesRequired;
+          save.resources.food -= food;
+          save.resources.weapons -= weapons;
+          save.resources.culture -= culture;
+          save.resources.materials -= materials;
+          save.resources.knowledge -= knowledge;
+          //Add town level
           save.townLevel += 1;
+          //Increment building cost
+          buildingsList[index].resourcesRequired.food = newRequiredresources(buildingsList[index].level, food);
+          buildingsList[index].resourcesRequired.weapons = newRequiredresources(buildingsList[index].level, weapons);
+          buildingsList[index].resourcesRequired.culture = newRequiredresources(buildingsList[index].level, culture);
+          buildingsList[index].resourcesRequired.materials = newRequiredresources(buildingsList[index].level, materials);
+          buildingsList[index].resourcesRequired.knowledge = newRequiredresources(buildingsList[index].level, knowledge);
         }
       }
     }
@@ -121,3 +127,8 @@ export default new Vuex.Store({
     }
   }
 });
+
+
+function newRequiredresources(buildingLevel, resource) {
+  return Math.floor((Math.pow(buildingLevel,2)/4) + resource)
+}
