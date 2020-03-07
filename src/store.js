@@ -9,12 +9,13 @@ import buildingsList from "./data/BuildingsList";
 export default new Vuex.Store({
   state: {
     saves: [],
-    saveId: null
+    saveId: null,
   },
   mutations: {
     newSave(state, payload) {
       state.saves.push({
         name: payload.name,
+        townLevel: 0,
         resources: {
           food: 10,
           materials: 10,
@@ -22,7 +23,7 @@ export default new Vuex.Store({
           culture: 10,
           knowledge: 10
         },
-        buildings: buildingsList.slice(0, 1)
+        buildings: buildingsList.slice(0, 5)
       });
     },
     deleteSave(state, payload) {
@@ -84,6 +85,7 @@ export default new Vuex.Store({
             buildingsList[index].resourcesRequired.materials;
           save.resources.knowledge -=
             buildingsList[index].resourcesRequired.knowledge;
+          save.townLevel += 1;
         }
       }
     }
