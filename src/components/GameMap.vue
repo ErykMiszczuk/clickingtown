@@ -4,7 +4,7 @@
     <BuildingTile class="gameMap__tile--one" resourceProduced="itr_culture" @gather="handleGather">
       <img class="tile__image" src="@/assets/tiles/medieval_house.png" alt="Cabin" />
     </BuildingTile>
-    <BuildingTile class="gameMap__tile--two" resourceProduced="itr_wepons" @gather="handleGather">
+    <BuildingTile class="gameMap__tile--two" resourceProduced="itr_weapons" @gather="handleGather">
       <img class="tile__image" src="@/assets/tiles/medieval_openCastle.png" alt="Castle" />
     </BuildingTile>
     <BuildingTile class="gameMap__tile--three" resourceProduced="itr_materials" @gather="handleGather">
