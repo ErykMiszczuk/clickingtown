@@ -1,5 +1,5 @@
 <template>
-  <div class="buildingTile" @click="$emit('gather', this.resourceProduced)">
+  <div class="buildingTile" @click="$emit('gather', resourceProduced)">
     <slot></slot>
   </div>
 </template>
@@ -9,7 +9,7 @@ export default {
   name: "BuildingTile",
   props: {
     resourceProduced: String
-  },
+  }
 }
 </script>
 

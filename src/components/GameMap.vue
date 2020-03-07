@@ -1,19 +1,19 @@
 <template>
   <div class="gameMap">
     <div class="gameBackground"></div>
-    <BuildingTile class="gameMap__tile--one" resourceProduced="itr_culture">
+    <BuildingTile class="gameMap__tile--one" resourceProduced="itr_culture" @gather="handleGather">
       <img class="tile__image" src="@/assets/tiles/medieval_house.png" alt="Cabin" />
     </BuildingTile>
-    <BuildingTile class="gameMap__tile--two" resourceProduced="itr_wepons">
+    <BuildingTile class="gameMap__tile--two" resourceProduced="itr_wepons" @gather="handleGather">
       <img class="tile__image" src="@/assets/tiles/medieval_openCastle.png" alt="Castle" />
     </BuildingTile>
-    <BuildingTile class="gameMap__tile--three" resourceProduced="itr_materials">
+    <BuildingTile class="gameMap__tile--three" resourceProduced="itr_materials" @gather="handleGather">
       <img class="tile__image" src="@/assets/tiles/medieval_mine.png" alt="Mine" />
     </BuildingTile>
-    <BuildingTile class="gameMap__tile--four" resourceProduced="itr_food">
+    <BuildingTile class="gameMap__tile--four" resourceProduced="itr_food" @gather="handleGather">
       <img class="tile__image" src="@/assets/tiles/medieval_farm.png" alt="Farm" />
     </BuildingTile>
-    <BuildingTile class="gameMap__tile--five" resourceProduced="itr_knowledge">
+    <BuildingTile class="gameMap__tile--five" resourceProduced="itr_knowledge" @gather="handleGather">
       <img class="tile__image" src="@/assets/tiles/medieval_church.png" alt="Church" />
     </BuildingTile>
   </div>
@@ -21,10 +21,34 @@
 
 <script>
 import BuildingTile from "@/components/BuildingTile.vue";
+import { mapState, mapMutations, mapActions } from "vuex";
+
 export default {
   name: "GameMap",
   components: {
     BuildingTile
+  },
+  methods: {
+    handleGather(e) {
+      if (e == "itr_food") {
+        this.addFoodResource({ value: 1 });
+      } else if (e == "itr_culture") {
+        this.addCultureResource({ value: 1 });
+      } else if (e == "itr_materials") {
+        this.addMaterialsResource({ value: 1 });
+      } else if (e == "itr_weapons") {
+        this.addWeaponsResource({ value: 1 });
+      } else if (e == "itr_knowledge") {
+        this.addKnowledgeResource({ value: 1 });
+      }
+    },
+    ...mapMutations([
+      "addFoodResource",
+      "addWeaponsResource",
+      "addKnowledgeResource",
+      "addMaterialsResource",
+      "addCultureResource"
+    ]),
   }
 };
 </script>

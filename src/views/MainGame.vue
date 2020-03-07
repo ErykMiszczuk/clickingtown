@@ -1,6 +1,6 @@
 <template>
   <div class="mainGame">
-    <GameMap class="mapPanel" @gather="handleGather" />
+    <GameMap class="mapPanel"/>
     <ResourcesBar class="resourcesPanel"/>
     <BuildingsList class="buildingsPanel"/>
   </div>
@@ -33,19 +33,6 @@ export default {
     BuildingsList
   },
   methods: {
-    handleGather(e) {
-      if (e == "itr_food") {
-        this.addFoodResource({ value: 1 });
-      } else if (e == "itr_culture") {
-        this.addCultureResource({ value: 1 });
-      } else if (e == "itr_materials") {
-        this.addMaterialsResource({ value: 1 });
-      } else if (e == "itr_weapons") {
-        this.addWeaponsResource({ value: 1 });
-      } else if (e == "itr_knowledge") {
-        this.addKnowledgeResource({ value: 1 });
-      }
-    },
     tick(currentTime) {
       let saveEveryAmountOfSeconds = 1500;
       if (!this.time) this.time = currentTime;
@@ -57,13 +44,6 @@ export default {
       }
       window.requestAnimationFrame(this.tick)
     },
-    ...mapMutations([
-      "addFoodResource",
-      "addWeaponsResource",
-      "addKnowledgeResource",
-      "addMaterialsResource",
-      "addCultureResource"
-    ]),
     ...mapActions([
       "setSavesInLocalStorage"
     ])
