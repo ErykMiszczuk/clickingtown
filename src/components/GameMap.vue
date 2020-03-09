@@ -1,7 +1,8 @@
 <template>
   <div class="gameMap">
     <div class="gameBackground"></div>
-    <BuildingTile class="gameMap__tile--one" resourceProduced="itr_culture" @gather="handleGather">
+    <BuildingTile @gather="handleGather" v-for="(building, key) in listOfVisibleBuildingTiles" :key="key" :buildingData="building" />
+    <!-- <BuildingTile class="gameMap__tile--one"  @gather="handleGather">
       <img class="tile__image" src="@/assets/tiles/medieval_house.png" alt="Cabin" />
     </BuildingTile>
     <BuildingTile class="gameMap__tile--two" resourceProduced="itr_weapons" @gather="handleGather">
@@ -15,7 +16,7 @@
     </BuildingTile>
     <BuildingTile class="gameMap__tile--five" resourceProduced="itr_knowledge" @gather="handleGather">
       <img class="tile__image" src="@/assets/tiles/medieval_church.png" alt="Church" />
-    </BuildingTile>
+    </BuildingTile> -->
   </div>
 </template>
 
@@ -49,6 +50,15 @@ export default {
       "addMaterialsResource",
       "addCultureResource"
     ]),
+  },
+  computed: {
+    listOfVisibleBuildingTiles() {
+      return this.saves[this.saveId].buildings.filter(el => el.level > 0);
+    },
+    ...mapState({
+      saves: state => state.saves,
+      saveId: state => state.saveId
+    })
   }
 };
 </script>
@@ -69,58 +79,5 @@ export default {
   width: 100vw;
   height: 100vh;
   background-position: -115px -100px;
-}
-
-.gameMap__tile {
-  &--one {
-    @extend .gameMap__tile;
-    left: 355px;
-    top: 310px;
-  }
-
-  &--two {
-    @extend .gameMap__tile;
-    left: 535px;
-    top: 415px;
-  }
-
-  &--three {
-    @extend .gameMap__tile;
-    left: 295px;
-    top: 204px;
-  }
-
-  &--four {
-    @extend .gameMap__tile;
-    left: 295px;
-    top: 415px;
-  }
-
-  &--five {
-    @extend .gameMap__tile;
-    left: 535px;
-    top: 204px;
-  }
-}
-
-.tile__image {
-  width: 100%;
-  height: 100%;
-
-  &:hover {
-    animation: building_selected 2s infinite;
-  }
-}
-
-@keyframes building_selected {
-  0% {
-    filter: brightness(1) saturate(130%);
-  }
-  50% {
-    filter: brightness(1.3) saturate(160%);
-  }
-  100% {
-    filter: brightness(1) saturate(130%);
-  }
 }
 </style>

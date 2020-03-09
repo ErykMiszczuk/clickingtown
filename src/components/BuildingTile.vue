@@ -1,6 +1,6 @@
 <template>
-  <div class="buildingTile" @click="$emit('gather', resourceProduced)">
-    <slot></slot>
+  <div class="buildingTile" @click="$emit('gather', buildingData.produces)" :style="cssStyles">
+    <img class="tile__image" :src="buildingData.imgPath" :alt="buildingData.name">
   </div>
 </template>
 
@@ -14,7 +14,7 @@ export default {
     }
   },
   props: {
-    resourceProduced: String
+    buildingData: Object
   },
   methods: {
     tick(currentTime) {
@@ -28,6 +28,14 @@ export default {
       window.requestAnimationFrame(this.tick)
     }
   },
+  computed: {
+    cssStyles() {
+      return {
+        '--pos-x': this.buildingData.position.x + "px",
+        '--pos-y': this.buildingData.position.y + "px"
+      }
+    }
+  },
   created() {
     this.gatherTimer = window.requestAnimationFrame(this.tick)
   },
@@ -37,11 +45,34 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 .buildingTile {
   position: absolute;
+  top: var(--pos-y);
+  left: var(--pos-x);
   width: 120px;
   height: 140px;
   clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+
+.tile__image {
+  width: 100%;
+  height: 100%;
+
+  &:hover {
+    animation: building_selected 2s infinite;
+  }
+}
+
+@keyframes building_selected {
+  0% {
+    filter: brightness(1) saturate(130%);
+  }
+  50% {
+    filter: brightness(1.3) saturate(160%);
+  }
+  100% {
+    filter: brightness(1) saturate(130%);
+  }
 }
 </style>
