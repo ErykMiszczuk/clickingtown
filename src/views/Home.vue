@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-    <div class="home__panel"></div>
 
     <div class="home__main">
       <div class="home__menu" v-if="menu == 0">
@@ -95,11 +94,23 @@
           <h1 class="menu__logoText">About</h1>
         </header>
         <div class="menu">
-          <article class="credits">
-            <section>
+          <article class="credits --verticalDivide">
+            <header class="credits__header">
+              <h3> License for game MPL 2.0 </h3>
+            </header>
+            <section class="credits__elements_list">
               <header>
-                License
+                <h3> Links to used resources and to their licenses </h3>
               </header>
+              <article class="credits__element_list__item">
+                Pixel art forest in main menu backround from <a href="https://edermunizz.itch.io/free-pixel-art-forest"> https://edermunizz.itch.io/free-pixel-art-forest </a>
+              </article>
+              <article class="credist__elements_list__item">
+                Map tiles from <a href="https://kenney.nl/"> https://kenney.nl/ </a>
+              </article>
+              <article class="credist__elements_list__item">
+                Fonts Open Sans and Rubik from <a href="https://fonts.google.com/?selection.family=Open+Sans:wght@400;700|Rubik:wght@400;500;700"> google fonts </a>.
+              </article>
             </section>
           </article>
           <GameTextButton @click="changeMenu(0)" class="--verticalDivide">
@@ -108,8 +119,6 @@
         </div>
       </div>
     </div>
-
-    <div class="home__panel"></div>
 
     <footer class="home__footer">
       <small>
@@ -282,8 +291,20 @@ export default {
   font-family: "Open Sans";
 }
 
+.credits {
+  @include basicTextMixin;
+  @include borderUiMixin($largeTextBackground, $largeTextAccent);
+  padding: 0.5em;
+}
+
 .--verticalDivide {
   margin-bottom: 0.5em;
+}
+
+a {
+  &:link, &:visited, &:hover, &:active {
+    color: $linkColor;
+  }
 }
 
 @media screen and (max-width: 702px) {

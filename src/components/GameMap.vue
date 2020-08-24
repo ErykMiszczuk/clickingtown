@@ -1,22 +1,9 @@
 <template>
   <div class="gameMap">
     <div class="gameBackground"></div>
-    <BuildingTile @gather="handleGather" v-for="(building, key) in listOfVisibleBuildingTiles" :key="key" :buildingData="building" />
-    <!-- <BuildingTile class="gameMap__tile--one"  @gather="handleGather">
-      <img class="tile__image" src="@/assets/tiles/medieval_house.png" alt="Cabin" />
-    </BuildingTile>
-    <BuildingTile class="gameMap__tile--two" resourceProduced="itr_weapons" @gather="handleGather">
-      <img class="tile__image" src="@/assets/tiles/medieval_openCastle.png" alt="Castle" />
-    </BuildingTile>
-    <BuildingTile class="gameMap__tile--three" resourceProduced="itr_materials" @gather="handleGather">
-      <img class="tile__image" src="@/assets/tiles/medieval_mine.png" alt="Mine" />
-    </BuildingTile>
-    <BuildingTile class="gameMap__tile--four" resourceProduced="itr_food" @gather="handleGather">
-      <img class="tile__image" src="@/assets/tiles/medieval_farm.png" alt="Farm" />
-    </BuildingTile>
-    <BuildingTile class="gameMap__tile--five" resourceProduced="itr_knowledge" @gather="handleGather">
-      <img class="tile__image" src="@/assets/tiles/medieval_church.png" alt="Church" />
-    </BuildingTile> -->
+    <div class="gameTiles">
+      <BuildingTile @gather="handleGather" v-for="(building, key) in listOfVisibleBuildingTiles" :key="key" :buildingData="building" />
+    </div>
   </div>
 </template>
 
@@ -64,20 +51,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.gameMap {
-  background-color: magenta;
-}
 
 .gameBackground {
-  position: absolute;
-  top: -10px;
-  left: -10px;
-  background: rgb(30,24,137);
-  background: linear-gradient(31deg, rgba(30,24,137,1) 0%, rgba(12,203,214,1) 35%, rgba(56,165,7,1) 63%, rgba(56,165,7,1) 100%);
-  background: url("./../assets/map_background.png");
+  background: rgb(120,180,255);
+  background: radial-gradient(circle, rgba(120,180,255,1) 0%, rgba(67,147,255,1) 100%);
   overflow: hidden;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
-  background-position: -115px -100px;
 }
+
+.gameTiles {
+  position: absolute;
+  width: 240px;
+  height: 3*140px;
+  top: 0;
+  left: 0;
+}
+
 </style>

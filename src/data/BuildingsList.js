@@ -13,8 +13,8 @@ const buildingsList = [
     },
     "Main resource of materials",
     './img/tiles/medieval_mine.png',
-    355,
-    310,
+    0,
+    0,
     1
   ),
   new Building(
@@ -29,8 +29,8 @@ const buildingsList = [
     },
     "Produces food for your empire",
     './img/tiles/medieval_farm.png',
-    535,
-    415,
+    120,
+    0,
     0
   ),
   new Building(
@@ -45,8 +45,8 @@ const buildingsList = [
     },
     "Spread culture across your people",
     './img/tiles/medieval_cabin.png',
-    295,
-    204,
+    60,
+    104,
     0
   ),
   new Building(
@@ -61,8 +61,8 @@ const buildingsList = [
     },
     "Priests holds one of the most valuble resources - knowledge",
     './img/tiles/medieval_church.png',
-    295,
-    415,
+    0,
+    208,
     0
   ),
   new Building(
@@ -77,8 +77,8 @@ const buildingsList = [
     },
     "Your empire needs weapons to stand against foes",
     './img/tiles/medieval_openCastle.png',
-    535,
-    204,
+    120,
+    208,
     0
   )
 ];
