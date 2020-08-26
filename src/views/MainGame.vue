@@ -35,6 +35,7 @@ export default {
   methods: {
     tick(currentTime) {
       let saveEveryAmountOfSeconds = 1500;
+      let collectResourcesEveryMiliseconds = 500;
       if (!this.time) this.time = currentTime;
       if (!this.resourceGaterTime) this.resourceGaterTime = currentTime;
       let delta = currentTime - this.time;
@@ -42,10 +43,15 @@ export default {
         this.time = 0;
         this.setSavesInLocalStorage();
       }
+      if (delta > collectResourcesEveryMiliseconds) {
+        this.time = 0;
+        this.collectResources();
+      }
       window.requestAnimationFrame(this.tick)
     },
     ...mapActions([
-      "setSavesInLocalStorage"
+      "setSavesInLocalStorage",
+      "collectResources"
     ])
   },
   computed: mapState({

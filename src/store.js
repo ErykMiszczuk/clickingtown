@@ -57,6 +57,10 @@ export default new Vuex.Store({
       let saveId = state.saveId;
       state.saves[saveId].resources.culture += payload.value;
     },
+    addAllResources(state, payload) {
+      let saveId = state.saveId;
+      state.saves[saveId].resources = payload;
+    },
     addBuildingLevel(state, payload) {
       let save = state.saves[state.saveId];
       let buildingsList = save.buildings;
@@ -124,6 +128,28 @@ export default new Vuex.Store({
       if (saves) {
         localStorage.setItem("saves", saves);
       }
+    },
+    async collectResources({ commit, state }) {
+      const { saves, saveId } = state;
+      const currentResources = saves[saveId].resources;
+      const buildingsList = saves[saveId].buildings;
+      let producedResources = buildingsList.map(el => {
+        let material = el.produces.substring(4);
+        return [material, levelBasedAmountOfResourcesProduced(el.level)];
+      });
+      let obj = {};
+      producedResources.map(el => {
+        obj[el[0]] = el[1];
+      });
+      producedResources = obj;
+      let resourcesSum = {
+        food: currentResources.food + producedResources.food,
+        materials: currentResources.materials + producedResources.materials,
+        weapons: currentResources.weapons + producedResources.weapons,
+        culture: currentResources.culture + producedResources.culture,
+        knowledge: currentResources.knowledge + producedResources.knowledge,
+      }
+      commit("addAllResources", resourcesSum);
     }
   }
 });
@@ -131,4 +157,8 @@ export default new Vuex.Store({
 
 function newRequiredresources(buildingLevel, resource) {
   return Math.floor((Math.pow(buildingLevel,2)/4) + resource)
+}
+
+function levelBasedAmountOfResourcesProduced(buildingLevel) {
+  return Math.floor((Math.pow(buildingLevel, 3)/8)) + 1;
 }
